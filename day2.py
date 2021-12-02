@@ -13,11 +13,12 @@ def prepare_data():
 @solver
 def part_a(data):
     x_pos, z_pos = 0, 0
-    for command, units in data:
-        if command == "forward":
-            x_pos += COMMANDS[command](units)
+    for command_name, units in data:
+        command = COMMANDS[command_name]
+        if command_name == "forward":
+            x_pos += command(units)
         else:
-            z_pos += COMMANDS[command](units)
+            z_pos += command(units)
     return z_pos * x_pos
 
 
@@ -25,11 +26,11 @@ def part_a(data):
 def part_b(data):
     pos = [0, 0]
     aim = 0
-    for command, units in data:
-        if command == "forward":
-            pos = COMMANDS[f"{command}_b"](pos, units, aim)
+    for command_name, units in data:
+        if command_name == "forward":
+            pos = COMMANDS[f"{command_name}_b"](pos, units, aim)
         else:
-            aim += COMMANDS["aim"](units, command)
+            aim += COMMANDS["aim"](units, command_name)
     return pos[0] * pos[1]
 
 
