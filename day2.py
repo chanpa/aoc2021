@@ -11,14 +11,37 @@ def prepare_data():
 
 @solver
 def part_a(data):
-    answer = data
-    return answer
+    commands = [line.split(" ") for line in data]
+    hor = 0
+    dep = 0
+    for c in commands:
+        command, l = c
+        if command == "forward":
+            hor += int(l)
+        elif command == "down":
+            dep += int(l)
+        elif command == "up":
+            dep -= int(l)
+    return hor * dep
 
 
 @solver
 def part_b(data):
-    answer = data
-    return answer
+    commands = [line.split(" ") for line in data]
+    hor = 0
+    dep = 0
+    aim = 0
+    for c in commands:
+        command, l = c[0], int(c[1])
+        if command == "down":
+            aim += l
+        elif command == "up":
+            aim -= l
+        elif command == "forward":
+            hor += l
+            dep += aim * l
+
+    return hor * dep
 
 
 def main():
