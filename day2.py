@@ -15,9 +15,9 @@ def part_a(data):
     x_pos, z_pos = 0, 0
     for command, units in data:
         if command == "forward":
-            x_pos = COMMANDS[command](x_pos, units)
+            x_pos += COMMANDS[command](units)
         else:
-            z_pos = COMMANDS[command](z_pos, units)
+            z_pos += COMMANDS[command](units)
     return z_pos * x_pos
 
 
@@ -29,15 +29,15 @@ def part_b(data):
         if command == "forward":
             pos = COMMANDS[f"{command}_b"](pos, units, aim)
         else:
-            aim = COMMANDS["aim"](aim, units, command)
+            aim += COMMANDS["aim"](units, command)
     return pos[0] * pos[1]
 
 
 COMMANDS = {
-    "forward": lambda position, units: position + units,
-    "up": lambda position, units: position - units,
-    "down": lambda position, units: position + units,
-    "aim": lambda position, units, direction: position + units if direction == "down" else position - units,
+    "forward": lambda units: units,
+    "up": lambda units: -units,
+    "down": lambda units: units,
+    "aim": lambda units, direction: units if direction == "down" else -units,
     "forward_b": lambda position, units, aim: [position[0] + units, position[1] + units * aim]
 }
 

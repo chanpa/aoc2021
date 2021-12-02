@@ -5,7 +5,7 @@ DAY = 3
 
 
 def prepare_data():
-    raw_data = parse_file_rows_to_list(DAY, output_type=str)
+    raw_data = parse_file_rows_to_list(DAY)
     return raw_data
 
 
