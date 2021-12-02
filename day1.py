@@ -1,12 +1,12 @@
-from helper.utils import solver, parse_file_rows_to_list
+from helper.utils import solver, parse_file_rows_to_list, list_str_to_list_number
 
 
 DAY = 1
 
 
 def prepare_data():
-    raw_data = parse_file_rows_to_list(DAY, output_type=int)
-    return raw_data
+    raw_data = parse_file_rows_to_list(DAY)
+    return list_str_to_list_number(raw_data)
 
 
 @solver

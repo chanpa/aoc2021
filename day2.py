@@ -5,43 +5,41 @@ DAY = 2
 
 
 def prepare_data():
-    raw_data = parse_file_rows_to_list(DAY, output_type=str)
-    return raw_data
+    raw_data = parse_file_rows_to_list(DAY, split_row_on=" ")
+    commands = [(command, int(units)) for command, units in raw_data]
+    return commands
 
 
 @solver
 def part_a(data):
-    commands = [line.split(" ") for line in data]
-    hor = 0
-    dep = 0
-    for c in commands:
-        command, l = c
+    x_pos, z_pos = 0, 0
+    for command, units in data:
         if command == "forward":
-            hor += int(l)
-        elif command == "down":
-            dep += int(l)
-        elif command == "up":
-            dep -= int(l)
-    return hor * dep
+            x_pos = COMMANDS[command](x_pos, units)
+        else:
+            z_pos = COMMANDS[command](z_pos, units)
+    return z_pos * x_pos
 
 
 @solver
 def part_b(data):
-    commands = [line.split(" ") for line in data]
-    hor = 0
-    dep = 0
+    pos = [0, 0]
     aim = 0
-    for c in commands:
-        command, l = c[0], int(c[1])
-        if command == "down":
-            aim += l
-        elif command == "up":
-            aim -= l
-        elif command == "forward":
-            hor += l
-            dep += aim * l
+    for command, units in data:
+        if command == "forward":
+            pos = COMMANDS[f"{command}_b"](pos, units, aim)
+        else:
+            aim = COMMANDS["aim"](aim, units, command)
+    return pos[0] * pos[1]
 
-    return hor * dep
+
+COMMANDS = {
+    "forward": lambda position, units: position + units,
+    "up": lambda position, units: position - units,
+    "down": lambda position, units: position + units,
+    "aim": lambda position, units, direction: position + units if direction == "down" else position - units,
+    "forward_b": lambda position, units, aim: [position[0] + units, position[1] + units * aim]
+}
 
 
 def main():

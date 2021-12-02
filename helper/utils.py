@@ -23,18 +23,27 @@ def solver(fn):
     return wrap
 
 
-def parse_file_rows_to_list(day: int, output_type=str) -> List:
+def parse_file_rows_to_list(day: int, split_row_on=None) -> List:
     filename = f"{Path(__file__).parents[1].resolve()}/inputs/{day}.data"
     rows = []
     with open(filename) as f:
         for row in f:
             row = row.strip()
-            if output_type == int:
-                row = atoi(row)
-            elif output_type == float:
-                row = atof(row)
+            if split_row_on:
+                row = row.split(split_row_on)
             rows.append(row)
     return rows
+
+
+def list_str_to_list_number(data, out_type=int):
+    new_data = []
+    for element in data:
+        if out_type == int:
+            num = atoi(element)
+        else:
+            num = atof(element)
+        new_data.append(num)
+    return new_data
 
 
 def group_on_empty_line(rows: List[str]) -> Dict[int, str]:
