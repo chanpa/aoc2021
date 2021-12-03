@@ -16,7 +16,7 @@ def part_a(data):
     gamma = ""
     epsi = ""
     for pos in freqs:
-        if freqs[pos] >= len(data)//2:
+        if freqs[pos] >= len(data)/2:
             gamma += "1"
             epsi += "0"
         else:
@@ -28,34 +28,32 @@ def part_a(data):
 @solver
 def part_b(data):
     oxy = filter_by_bit(0, data)
-    co2 = filter_by_bit(0, data, most=False)
+    co2 = filter_by_bit(0, data, keep_most_common=False)
     return int(oxy, 2) * int(co2, 2)
 
 
-def filter_by_bit(bit_pos, nums, most=True):
+def filter_by_bit(bit_pos, nums, keep_most_common=True):
     if len(nums) == 1:
         return nums[0]
 
-    freqs = determine_one_freqs(nums)
-    most_common = "1" if freqs[bit_pos] >= len(nums)/2 else "0"
-    keep = []
+    frequencies = determine_one_freqs(nums)
+    most_common = "1" if frequencies[bit_pos] >= len(nums)/2 else "0"
+    numbers_kept = []
     for num in nums:
-        if most:
-            if num[bit_pos] == most_common:
-                keep.append(num)
-        else:
-            if num[bit_pos] != most_common:
-                keep.append(num)
-    return filter_by_bit(bit_pos + 1, keep, most=most)
+        if keep_most_common and num[bit_pos] == most_common:
+            numbers_kept.append(num)
+        elif not keep_most_common and num[bit_pos] != most_common:
+            numbers_kept.append(num)
+    return filter_by_bit(bit_pos + 1, numbers_kept, keep_most_common=keep_most_common)
 
 
 def determine_one_freqs(nums):
-    freqs = defaultdict(int)
+    frequencies = defaultdict(int)
     for i in range(len(nums[0])):
         for num in nums:
             if num[i] == "1":
-                freqs[i] += 1
-    return freqs
+                frequencies[i] += 1
+    return frequencies
 
 
 def main():
