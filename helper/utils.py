@@ -30,7 +30,7 @@ def parse_file_rows_to_list(day: int, split_row_on=None) -> List:
         for row in f:
             row = row.strip()
             if split_row_on:
-                row = row.split(split_row_on)
+                row = [e for e in row.split(split_row_on) if e]
             rows.append(row)
     return rows
 
@@ -50,7 +50,7 @@ def group_on_empty_line(rows: List[str]) -> Dict[int, str]:
     groups = defaultdict(list)
     group = 0
     for e in rows:
-        if e == "":
+        if not e:
             group += 1
             continue
         groups[group].append(e)
