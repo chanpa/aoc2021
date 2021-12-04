@@ -33,7 +33,7 @@ def parse_file_rows_to_list(day: int, test=False, split_row_on=None) -> List:
         for row in f:
             row = row.strip()
             if split_row_on:
-                row = [e for e in row.split(split_row_on) if e]
+                row = [e.strip() for e in row.split(split_row_on) if e]
             rows.append(row)
     return rows
 
