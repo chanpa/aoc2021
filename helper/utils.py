@@ -23,8 +23,11 @@ def solver(fn):
     return wrap
 
 
-def parse_file_rows_to_list(day: int, split_row_on=None) -> List:
-    filename = f"{Path(__file__).parents[1].resolve()}/inputs/{day}.data"
+def parse_file_rows_to_list(day: int, test=False, split_row_on=None) -> List:
+    if test:
+        filename = f"{Path(__file__).parents[1].resolve()}/inputs_test/{day}.data"
+    else:
+        filename = f"{Path(__file__).parents[1].resolve()}/inputs/{day}.data"
     rows = []
     with open(filename) as f:
         for row in f:

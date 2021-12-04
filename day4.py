@@ -22,9 +22,8 @@ def part_a(boards_with_nums):
                     boards_with_bools[group][i][j] = True
             if _check_if_winner(boards_with_bools[group]):
                 return _calculate_score(
-                    group,
-                    boards_with_nums,
-                    boards_with_bools,
+                    board_nums,
+                    boards_with_bools[group],
                     num
                 )
 
@@ -42,9 +41,8 @@ def part_b(boards_with_nums):
                     boards_with_bools[group][i][row.index(num)] = True
             if _check_if_winner(boards_with_bools[group]):
                 winners[group] = _calculate_score(
-                    group,
-                    boards_with_nums,
-                    boards_with_bools,
+                    board_nums,
+                    boards_with_bools[group],
                     num
                 )
                 if len(winners) == len(boards_with_bools):
@@ -77,17 +75,16 @@ def _check_if_winner(board):
 
 
 def _calculate_score(
-        winning_group,
-        boards_with_nums,
-        boards_with_bools,
+        board_nums,
+        board_bools,
         num
 ):
-    depth = len(boards_with_bools[winning_group])
+    depth = len(board_nums)
     unmarked_nums = [
-        int(boards_with_nums[winning_group][i][j])
+        int(board_nums[i][j])
         for i in range(depth)
         for j in range(depth)
-        if not boards_with_bools[winning_group][i][j]
+        if not board_bools[i][j]
     ]
     return sum(unmarked_nums) * int(num)
 
@@ -100,4 +97,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
