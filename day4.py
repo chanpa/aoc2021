@@ -1,5 +1,5 @@
 from helper.utils import solver, parse_file_rows_to_list, group_on_empty_line
-
+from copy import deepcopy
 
 DAY = 4
 
@@ -11,42 +11,32 @@ def prepare_data():
 
 @solver
 def part_a(boards_with_nums):
-    boards_with_bools = _create_boards(boards_with_nums)
-    for num in boards_with_nums[0][0][0].split(","):
-        for group, board_nums in boards_with_nums.items():
-            if group == 0:
-                continue
-            for i, row in enumerate(board_nums):
-                if num in row:
-                    j = row.index(num)
-                    boards_with_bools[group][i][j] = True
-            if _check_if_winner(boards_with_bools[group]):
-                return _calculate_score(
-                    board_nums,
-                    boards_with_bools[group],
-                    num
-                )
+    return bingo_game(boards_with_nums)
 
 
 @solver
 def part_b(boards_with_nums):
+    return bingo_game(boards_with_nums, num_winners=len(boards_with_nums) - 1)
+
+
+def bingo_game(boards_with_nums, num_winners=1):
+    draw_sequence = boards_with_nums.pop(0)[0][0].split(",")
     boards_with_bools = _create_boards(boards_with_nums)
     winners = {}
-    for num in boards_with_nums[0][0][0].split(","):
-        for group, board_nums in boards_with_nums.items():
-            if group == 0 or group in winners:
+    for drawn_number in draw_sequence:
+        for board_number, board in boards_with_nums.items():
+            if board_number in winners:
                 continue
-            for i, row in enumerate(board_nums):
-                if num in row:
-                    boards_with_bools[group][i][row.index(num)] = True
-            if _check_if_winner(boards_with_bools[group]):
-                winners[group] = _calculate_score(
-                    board_nums,
-                    boards_with_bools[group],
-                    num
+            for i, row in enumerate(board):
+                if drawn_number in row:
+                    boards_with_bools[board_number][i][row.index(drawn_number)] = True
+                    break  # numbers are unique
+            if _check_if_winner(boards_with_bools[board_number]):
+                winners[board_number] = _calculate_score(
+                    board, boards_with_bools[board_number], drawn_number
                 )
-                if len(winners) == len(boards_with_bools):
-                    return winners[group]
+                if len(winners) == num_winners:
+                    return winners[board_number]
 
 
 def _create_boards(data):
@@ -91,8 +81,8 @@ def _calculate_score(
 
 def main():
     data = prepare_data()
-    part_a(data)
-    part_b(data)
+    part_a(deepcopy(data))
+    part_b(deepcopy(data))
 
 
 if __name__ == '__main__':
