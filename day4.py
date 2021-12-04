@@ -47,8 +47,6 @@ def bingo_game(boards, num_winners=1):
 def _create_reference_boards(data):
     reference_boards = {}
     for group, board in data.items():
-        if group == 0:
-            continue
         reference_boards[group] = _create_board(len(board))
     return reference_boards
 
