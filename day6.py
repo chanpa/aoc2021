@@ -25,7 +25,6 @@ def simulate_fish(all_fish, days=80):
     for day in range(days):
         new_births = ages[day % 7]
         ages[(day + 8) % 7] += new_births
-
     return sum(ages.values())
 
 
