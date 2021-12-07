@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list, list_str_to_list_number
+from helper.utils import time_function, parse_file_rows_to_list, list_str_to_list_number
 from collections import defaultdict
 
 
@@ -10,12 +10,12 @@ def prepare_data():
     return list_str_to_list_number(raw_data[0])
 
 
-@solver
+@time_function
 def part_a(data):
     return simulate_fish(data)
 
 
-@solver
+@time_function
 def part_b(data):
     return simulate_fish(data, days=256)
 

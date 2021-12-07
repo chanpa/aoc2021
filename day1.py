@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list, list_str_to_list_number
+from helper.utils import time_function, parse_file_rows_to_list, list_str_to_list_number
 
 
 DAY = 1
@@ -9,12 +9,12 @@ def prepare_data():
     return list_str_to_list_number(raw_data)
 
 
-@solver
+@time_function
 def part_a(data):
     return general_solution(data)
 
 
-@solver
+@time_function
 def part_b(data):
     return general_solution(data, chunk_size=3)
 

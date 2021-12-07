@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list, group_on_empty_line
+from helper.utils import time_function, parse_file_rows_to_list, group_on_empty_line
 from copy import deepcopy
 
 
@@ -10,12 +10,12 @@ def prepare_data():
     return group_on_empty_line(raw_data)
 
 
-@solver
+@time_function
 def part_a(boards):
     return bingo_game(boards)
 
 
-@solver
+@time_function
 def part_b(boards):
     return bingo_game(boards, num_winners=len(boards) - 1)
 

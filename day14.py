@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list
+from helper.utils import time_function, parse_file_rows_to_list
 
 
 DAY = 14
@@ -9,13 +9,13 @@ def prepare_data():
     return raw_data
 
 
-@solver
+@time_function
 def part_a(data):
     answer = data
     return answer
 
 
-@solver
+@time_function
 def part_b(data):
     answer = data
     return answer

@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list
+from helper.utils import time_function, parse_file_rows_to_list
 
 
 DAY = 2
@@ -10,7 +10,7 @@ def prepare_data():
     return commands
 
 
-@solver
+@time_function
 def part_a(data):
     x_pos, z_pos = 0, 0
     for command_name, units in data:
@@ -22,7 +22,7 @@ def part_a(data):
     return z_pos * x_pos
 
 
-@solver
+@time_function
 def part_b(data):
     pos = [0, 0]
     aim = 0

@@ -1,4 +1,4 @@
-from helper.utils import solver, parse_file_rows_to_list
+from helper.utils import time_function, parse_file_rows_to_list
 from collections import defaultdict
 
 
@@ -10,7 +10,7 @@ def prepare_data():
     return raw_data
 
 
-@solver
+@time_function
 def part_a(data):
     freqs = determine_one_freqs(data)
     gamma = ""
@@ -25,7 +25,7 @@ def part_a(data):
     return int(gamma, 2) * int(epsi, 2)
 
 
-@solver
+@time_function
 def part_b(data):
     oxy = filter_by_bit(0, data)
     co2 = filter_by_bit(0, data, keep_most_common=False)
