@@ -4,17 +4,18 @@ from helper.utils import *
 DAY = 7
 
 
+@time_function
 def prepare_data():
     raw_data = parse_file_rows_to_list(DAY, split_row_on=",")
     return list_str_to_list_number(raw_data[0])
 
 
-@solver
+@time_function
 def part_a(data):
     return _calc_fuel_consumption(data)
 
 
-@solver
+@time_function
 def part_b(data):
     return _calc_fuel_consumption(data, gaussian_sum=True)
 

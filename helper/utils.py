@@ -11,14 +11,16 @@ NS_TO_MILLI = 1_000_000
 NS_TO_MICRO = 1_000
 
 
-def solver(fn):
+def time_function(fn):
     def wrap(*args, **kwargs):
         start = perf_counter_ns()
         res = fn(*args, **kwargs)
         elapsed_time = perf_counter_ns() - start
         print(f"{fn.__name__}:")
-        print(f"Answer is: {res}")
-        print(f"Took: {elapsed_time / NS_TO_MICRO} µs\n")
+        if "part" in fn.__name__:
+            print(f"Answer is: {res}")
+        print(f"Took: {(elapsed_time / NS_TO_MICRO):_.3f} µs\n")
+        return res
 
     return wrap
 
