@@ -20,8 +20,7 @@ def part_a(data):
 @time_function
 def part_b(data):
     kernel = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    largest_basins = _map_all_basins(data, kernel)[-3:]
-    return prod(largest_basins)
+    return prod(_map_all_basins(data, kernel)[-3:])
 
 
 def _calc_total_risk_level(data, kernel):
@@ -46,12 +45,10 @@ def _is_low_point(position, kernel, data):
             continue
         try:
             if data[x][y] >= data[x+dx][y+dy]:
-                break
+                return False
         except IndexError:
             pass  # IndexError means we are at the edge and it's trying to check outside the bounds
-    else:
-        return True
-    return False
+    return True
 
 
 def _map_all_basins(data, kernel):
@@ -87,4 +84,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
