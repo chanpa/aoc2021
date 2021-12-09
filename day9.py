@@ -38,8 +38,10 @@ def _find_low_points(data, kernel):
 
 
 def _is_low_point(position, kernel, data):
-    for neighbour in neighbours(position, kernel):
-        nx, ny = neighbour
+    x, y = position
+    for adjacent_point in kernel:
+        dx, dy = adjacent_point
+        nx, ny = x + dx, y + dy
         if nx < 0 or ny < 0:
             continue
         try:
@@ -63,8 +65,10 @@ def _get_basin_size(low_point, data, kernel):
     queue = [low_point]
     visited = set()
     while queue:
-        point = queue.pop(0)
-        for n in neighbours(point, kernel):
+        x, y = queue.pop(0)
+        for adjacent_point in kernel:
+            dx, dy = adjacent_point
+            n = x + dx, y + dy
             nx, ny = n
             try:
                 if nx < 0 or ny < 0 or n in visited or data[nx][ny] == 9:
