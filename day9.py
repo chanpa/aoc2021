@@ -40,14 +40,12 @@ def _find_low_points(data, kernel):
 
 def _is_low_point(position, kernel, data):
     x, y = position
-    point_value = data[x][y]
     for adjacent_point in kernel:
         dx, dy = adjacent_point
         if x+dx < 0 or y+dy < 0:
             continue
         try:
-            adjacent_point_value = data[x+dx][y+dy]
-            if point_value >= adjacent_point_value:
+            if data[x][y] >= data[x+dx][y+dy]:
                 break
         except IndexError:
             pass  # IndexError means we are at the edge and it's trying to check outside the bounds
