@@ -40,11 +40,11 @@ def _draw_lines(lines, diagonals=False):
             for delta in range(abs(x1 - x2) + 1):
                 board[(min(x1, x2) + delta, y1)] += 1
         elif diagonals:
-            _draw_diagonals((x1, y1), (x2, y2), board)
+            _draw_diagonal((x1, y1), (x2, y2), board)
     return board
 
 
-def _draw_diagonals(p1, p2, board):
+def _draw_diagonal(p1, p2, board):
     x1, y1 = p1
     x2, y2 = p2
     if x1 - x2 == y1 - y2:
