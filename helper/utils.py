@@ -70,3 +70,8 @@ def liststr_to_listlist(group: List[str]) -> List[List]:
             sys.exit(1)
         new_vals.append(list(value))
     return new_vals
+
+
+def neighbours(point, kernel):
+    x, y = point
+    return [(x + dx, y + dy) for dx, dy in kernel]
