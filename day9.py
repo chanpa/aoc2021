@@ -67,7 +67,7 @@ def _get_basin_size(low_point, data, kernel):
         for n in neighbours(point, kernel):
             nx, ny = n
             try:
-                if (nx < 0 or ny < 0) or n in visited or data[nx][ny] == 9:
+                if nx < 0 or ny < 0 or n in visited or data[nx][ny] == 9:
                     continue
             except IndexError:
                 continue
