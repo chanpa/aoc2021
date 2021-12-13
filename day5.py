@@ -6,6 +6,7 @@ from helper.utils import time_function, parse_file_rows_to_list
 DAY = 5
 
 
+@time_function
 def prepare_data():
     raw_data = parse_file_rows_to_list(DAY, split_row_on=" -> ")
     data = []

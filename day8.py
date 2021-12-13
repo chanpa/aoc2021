@@ -13,7 +13,6 @@ def prepare_data():
 @time_function
 def part_a(data):
     answer = 0
-    print(data)
     for _, output_values in data:
         for digit in output_values:
             if len(digit) in [2, 3, 4, 7]:
@@ -28,7 +27,7 @@ def part_b(data):
         lengths = {len(digit): set(digit) for digit in input_digits}
         output = ""
         for digit in map(set, output_digits):
-            match len(digit), len(digit&lengths[4]), len(digit&lengths[2]):
+            match len(digit), len(digit & lengths[4]), len(digit & lengths[2]):
                 case 2, _, _: output += "1"
                 case 3, _, _: output += "7"
                 case 4, _, _: output += "4"
