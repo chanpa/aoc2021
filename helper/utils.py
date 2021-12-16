@@ -9,6 +9,10 @@ from pathlib import Path
 setlocale(LC_NUMERIC, "en_US.UTF-8")
 NS_TO_MILLI = 1_000_000
 NS_TO_MICRO = 1_000
+NEIGHBOUR_KERNELS = {
+    "diagonal": [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)],
+    "default": [(0, 1), (0, -1), (1, 0), (-1, 0)]
+}
 
 
 def time_function(fn):
@@ -72,6 +76,20 @@ def liststr_to_listlist(group: List[str]) -> List[List]:
     return new_vals
 
 
-def neighbours(point, kernel):
+def neighbours_dict(point, values, diagonal=False):
+    x, y = point
+    return filter(
+        values.get,
+        [(x + dx, y + dy) for dx, dy in kernel]
+    )
+
+
+def neighbours_grid(point, diagonal=False):
     x, y = point
     return [(x + dx, y + dy) for dx, dy in kernel]
+
+
+def _get_kernel(diagonal=False):
+    if diagonal:
+        return NEIGHBOUR_KERNELS["diagonal"]
+    return NEIGHBOUT_KERNELS["default"]
