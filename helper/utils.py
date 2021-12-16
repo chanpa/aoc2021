@@ -92,4 +92,4 @@ def neighbours_grid(point, diagonal=False):
 def _get_kernel(diagonal=False):
     if diagonal:
         return NEIGHBOUR_KERNELS["diagonal"]
-    return NEIGHBOUT_KERNELS["default"]
+    return NEIGHBOUR_KERNELS["default"]
