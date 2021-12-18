@@ -53,6 +53,21 @@ class SnailNumber:
         return 3 * SnailNumber._calc_magnitude(num[0]) + 2 * SnailNumber._calc_magnitude(num[1])
 
     @staticmethod
+    def explode(num, n=4):
+        if isinstance(num, int):
+            return False, None, num, None
+        if n == 0:
+            return True, num[0], 0, num[1]
+        a, b = num
+        exp, left, a, right = SnailNumber.explode(a, n - 1)
+        if exp:
+            return True, left, [a, SnailNumber.add_left(b, right)], None
+        exp, left, b, right = SnailNumber.explode(b, n - 1)
+        if exp:
+            return True, None, [SnailNumber.add_right(a, left), b], right
+        return False, None, num, None
+
+    @staticmethod
     def add_left(x, n):
         if n is None:
             return x
@@ -67,21 +82,6 @@ class SnailNumber:
         if isinstance(x, int):
             return x + n
         return [x[0], SnailNumber.add_right(x[1], n)]
-
-    @staticmethod
-    def explode(x, n=4):
-        if isinstance(x, int):
-            return False, None, x, None
-        if n == 0:
-            return True, x[0], 0, x[1]
-        a, b = x
-        exp, left, a, right = SnailNumber.explode(a, n - 1)
-        if exp:
-            return True, left, [a, SnailNumber.add_left(b, right)], None
-        exp, left, b, right = SnailNumber.explode(b, n - 1)
-        if exp:
-            return True, None, [SnailNumber.add_right(a, left), b], right
-        return False, None, x, None
 
     @staticmethod
     def split(x):
