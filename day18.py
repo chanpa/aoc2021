@@ -25,6 +25,9 @@ def part_b(data):
 
 
 class SnailNumber:
+    """
+    LOTS of help from various reddit threads to implement this class
+    """
     def __init__(self, num):
         self.num = num
 

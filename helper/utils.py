@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-from heapq import heappush, heappop, heapify
+from heapq import heappush, heappop
 from time import perf_counter_ns
 from typing import List, Any
 from locale import atof, atoi, setlocale, LC_NUMERIC
@@ -199,6 +199,10 @@ def _build_path(node):
         path.append(node)
         node = node.parent
     return path[::-1]
+
+
+def gauss_sum(n):
+    return n * (n + 1) // 2
 
 
 def _get_kernel(diagonal=False):
