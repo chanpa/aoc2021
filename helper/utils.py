@@ -1,6 +1,6 @@
 import sys
 from time import perf_counter_ns
-from typing import List, Dict
+from typing import List, Any
 from locale import atof, atoi, setlocale, LC_NUMERIC
 from collections import defaultdict
 from pathlib import Path
@@ -55,7 +55,7 @@ def list_str_to_list_number(data, out_type=int):
     return new_data
 
 
-def group_on_empty_line(rows: List[str]) -> Dict[int, str]:
+def group_on_empty_line(rows: List[str]) -> defaultdict[Any, List]:
     groups = defaultdict(list)
     group = 0
     for e in rows:
@@ -80,13 +80,20 @@ def neighbours_dict(point, values, diagonal=False):
     x, y = point
     return filter(
         values.get,
-        [(x + dx, y + dy) for dx, dy in kernel]
+        [(x + dx, y + dy) for dx, dy in _get_kernel(diagonal)]
     )
 
 
 def neighbours_grid(point, diagonal=False):
     x, y = point
-    return [(x + dx, y + dy) for dx, dy in kernel]
+    return [(x + dx, y + dy) for dx, dy in _get_kernel(diagonal)]
+
+
+def get_list_depth(lst):
+    if isinstance(lst, list):
+        return 1 + max(get_list_depth(element) for element in lst)
+    else:
+        return 0
 
 
 def _get_kernel(diagonal=False):
